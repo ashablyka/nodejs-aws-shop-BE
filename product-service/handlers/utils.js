@@ -1,4 +1,4 @@
-export const buildResponse = (statusCode: number, body: unknown) => ({
+exports.buildResponse = (statusCode, body) => ({
   statusCode,
   headers: {
     "Access-Control-Allow-Credentials": true,
