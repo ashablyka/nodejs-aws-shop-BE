@@ -6,15 +6,18 @@ export class ProductServiceStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const getProductsList = new lambda.Function(this, "GetProductsListLambda", {
+    const partialLambdaProps: Pick<lambda.FunctionProps, "runtime" | "code"> = {
       runtime: lambda.Runtime.NODEJS_16_X,
       code: lambda.Code.fromAsset("handlers"),
+    };
+
+    const getProductsList = new lambda.Function(this, "GetProductsListLambda", {
+      ...partialLambdaProps,
       handler: "getProductsList.handler",
     });
 
     const getProduct = new lambda.Function(this, "GetProductLambda", {
-      runtime: lambda.Runtime.NODEJS_16_X,
-      code: lambda.Code.fromAsset("handlers"),
+      ...partialLambdaProps,
       handler: "getProduct.handler",
     });
 
